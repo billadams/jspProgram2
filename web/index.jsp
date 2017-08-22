@@ -64,6 +64,8 @@
                                 <th>Employee ID</th>
                                 <th>Birth Date</th>
                                 <th>Hire Date</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,6 +77,22 @@
                                     <td>${employee.employeeID}</td>
                                     <td>${employee.birthDateFormatted}</td>
                                     <td>${employee.hireDateFormatted}</td>
+                                    <td>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="action" value="editEmployee">
+                                            <input type="hidden" name="employeeID" 
+                                                   value="<c:out value='${employee.employeeID}'/>">
+                                            <input class="btn btn-primary btn-block" type="submit" value="Edit">
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="action" value="removeEmployee">
+                                            <input type="hidden" name="employeeID" 
+                                                   value="<c:out value='${employee.employeeID}'/>">
+                                            <input class="btn btn-danger btn-block" type="submit" value="Delete">
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -4,9 +4,17 @@
         <servlet-name>EmployeeListServlet</servlet-name>
         <servlet-class>controller.EmployeeListServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EmployeeEditServlet</servlet-name>
+        <servlet-class>controller.EmployeeEditServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeListServlet</servlet-name>
         <url-pattern>/EmployeeListServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EmployeeEditServlet</servlet-name>
+        <url-pattern>/EmployeeEditServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>EmployeeListServlet</welcome-file>
