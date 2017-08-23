@@ -78,18 +78,18 @@
                                     <td>${employee.birthDateFormatted}</td>
                                     <td>${employee.hireDateFormatted}</td>
                                     <td>
-                                        <form action="" method="post">
+                                        <form action="EmployeeEditServlet" method="post">
                                             <input type="hidden" name="action" value="editEmployee">
                                             <input type="hidden" name="employeeID" 
-                                                   value="<c:out value='${employee.employeeID}'/>">
+                                                   value="${employee.employeeID}">
                                             <input class="btn btn-primary btn-block" type="submit" value="Edit">
                                         </form>
                                     </td>
                                     <td>
-                                        <form action="" method="post">
+                                        <form action="EmployeeEditServlet" method="post">
                                             <input type="hidden" name="action" value="removeEmployee">
                                             <input type="hidden" name="employeeID" 
-                                                   value="<c:out value='${employee.employeeID}'/>">
+                                                   value="${employee.employeeID}">
                                             <input class="btn btn-danger btn-block" type="submit" value="Delete">
                                         </form>
                                     </td>
