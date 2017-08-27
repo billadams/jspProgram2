@@ -12,11 +12,14 @@ import java.util.ArrayList;
  * @author Bill Adams
  */
 public class ValidationException extends Exception {
+    
     ArrayList<String> messages = new ArrayList<String>();
  
     public ValidationException() {}
     
     public ValidationException(String message) {
+        
         messages.add(message);
+        
     }
 }

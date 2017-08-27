@@ -10,7 +10,7 @@ import business.Person;
 import data.EmployeeManagerDA;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
+//import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
@@ -50,8 +50,10 @@ public class EmployeeListServlet extends HttpServlet {
         // Get the current action
         String action = request.getParameter("action");
         if (action == null) {
+            
             // The default action
             action = "defaultList";
+            
         }
         
         // Create the default list of employees if they don't already exist.
@@ -62,6 +64,7 @@ public class EmployeeListServlet extends HttpServlet {
         ArrayList<Person> employeeList = new ArrayList<Person>();
         
         if (action.equals("defaultList")) {
+            
             url = "/index.jsp";
                        
             // Get the default list of employees.
@@ -69,13 +72,16 @@ public class EmployeeListServlet extends HttpServlet {
             
             // Set the date input to today.
             dateInputString = DateUtil.createFormattedDateInputString();
+            
         }
         else if (action.equals("searchRequest")) {    
+            
             String hireDateString = request.getParameter("searchDate");
             LocalDate hireDate = null;
             
             // Validate that the user entered an actual date.
             try {
+                
                 hireDate = LocalDate.parse(hireDateString);
                 
                 // Override the default list of employees to reflect the 
@@ -101,8 +107,10 @@ public class EmployeeListServlet extends HttpServlet {
                 request.setAttribute("searchCriteria", searchCriteria);
                 request.setAttribute("searchDateFormatted", searchDateFormatted);
                 request.setAttribute("listCount", listCount);
+                
             }
             catch (Exception e) {
+                
                 // Get the default list of employees.
                 employeeList = allEmployees.getEmployees();
                 
@@ -111,9 +119,11 @@ public class EmployeeListServlet extends HttpServlet {
                 
                 messages.add("Please enter a valid search date.");
                 request.setAttribute("messages", messages);
+                
             }
         }
         else if (action.equals("clearSearch")) {
+            
             // The user cleared the search so set the hasSearched variable
             // to false and generate the default list of employees.
             hasSearched = false;
@@ -121,6 +131,7 @@ public class EmployeeListServlet extends HttpServlet {
             
             // Set the date input to today.
             dateInputString = DateUtil.createFormattedDateInputString();
+            
         }
         
         // Persist the hasSearched variable.

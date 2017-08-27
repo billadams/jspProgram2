@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class FormValidation {
     
     public static String validateStringInput(String fieldString, String fieldName) {
+        
         String message = "";
         
         if (fieldString.equals("")) {
@@ -24,25 +25,35 @@ public class FormValidation {
     }
     
     public static String validateIntegerInput(String fieldString, String fieldName) {
+        
         String message = "";
 
         try {
+            
             int i = Integer.parseInt(fieldString);
+            
         }
         catch (NumberFormatException e) {
+            
             message = fieldName + " is required and must be a valid Integer.";
+            
         }
 
         return message;
     }
     
     public static String validateDateInput(String fieldString, String fieldName) {
+        
         String message = "";
 
         try {
+            
             LocalDate date = LocalDate.parse(fieldString);
+            
         } catch (Exception e) {
+            
             message = fieldName + " is required and must be a valid Date.";
+            
         }
 
         return message;

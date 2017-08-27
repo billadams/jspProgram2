@@ -65,34 +65,34 @@
                                 <th>Birth Date</th>
                                 <th>Hire Date</th>
                                 <th></th>
-                                <th></th>
+                                <!--<th></th>-->
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="employee" items="${employeeList}">
                                 <tr>
-                                    <td>${employee.firstName}</td>
-                                    <td>${employee.middleName}</td>
-                                    <td>${employee.lastName}</td>
-                                    <td>${employee.employeeID}</td>
-                                    <td>${employee.birthDateFormatted}</td>
-                                    <td>${employee.hireDateFormatted}</td>
+                                    <td><c:out value="${employee.firstName}" /></td>
+                                    <td><c:out value="${employee.middleName}" /></td>
+                                    <td><c:out value="${employee.lastName}" /></td>
+                                    <td><c:out value="${employee.employeeID}" /></td>
+                                    <td><c:out value="${employee.birthDateFormatted}" /></td>
+                                    <td><c:out value="${employee.hireDateFormatted}" /></td>
                                     <td>
                                         <form action="EmployeeEditServlet" method="post">
                                             <input type="hidden" name="action" value="editEmployee">
                                             <input type="hidden" name="employeeID" 
-                                                   value="${employee.employeeID}">
+                                                   value="<c:out value='${employee.employeeID}' />">
                                             <input class="btn btn-primary btn-block" type="submit" value="Edit">
                                         </form>
                                     </td>
-                                    <td>
+<!--                                    <td>
                                         <form action="EmployeeEditServlet" method="post">
                                             <input type="hidden" name="action" value="removeEmployee">
                                             <input type="hidden" name="employeeID" 
-                                                   value="${employee.employeeID}">
+                                                   value="<c:out value='${employee.employeeID}' />">
                                             <input class="btn btn-danger btn-block" type="submit" value="Delete">
                                         </form>
-                                    </td>
+                                    </td>-->
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -104,7 +104,7 @@
                         <input type="hidden" name="action" value="searchRequest">
                         <div class="form-group">
                             <label for="select-hire-date">Search hire date</label>
-                            <input type="date" name="searchDate" class="form-control" id="select-hire-date" value="${dateInputString}">
+                            <input type="date" name="searchDate" class="form-control" id="select-hire-date" value="<c:out value='${dateInputString}' />">
                         </div>
                         <div class="radio">
                             <label for="before-date">

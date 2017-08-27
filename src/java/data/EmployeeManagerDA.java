@@ -34,7 +34,9 @@ public class EmployeeManagerDA {
                 + "VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
+            
             for (Person employee : employees) {
+                
                 ps = connection.prepareStatement(query);
 
                 ps.setString(1, employee.getFirstName());
@@ -45,15 +47,21 @@ public class EmployeeManagerDA {
                 ps.setDate(6, java.sql.Date.valueOf(employee.getHireDate()));
 
                 rowcount += ps.executeUpdate();
+                
             }
 
             return rowcount;
+            
         } catch (SQLException e) {
+            
             System.out.println(e);
             return rowcount;
+            
         } finally {
+            
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+            
         }
     }
     
@@ -98,6 +106,7 @@ public class EmployeeManagerDA {
                 LocalDate.of(1862, Month.JUNE, 13), LocalDate.of(1992, Month.MARCH, 14)));
         
         return all;
+        
     }
     
     public static ArrayList<Person> getAllEmployees() {
@@ -111,11 +120,13 @@ public class EmployeeManagerDA {
         String query = "SELECT * FROM employees";
 
         try {
+            
             ps = connection.prepareStatement(query);
             rs = ps.executeQuery();
             Person person = null;
 
             while (rs.next()) {
+                
                 person = new Person();
                 person.setFirstName(rs.getString("firstName"));
                 person.setMiddleName(rs.getString("middleName"));
@@ -125,16 +136,22 @@ public class EmployeeManagerDA {
                 person.setHireDate(rs.getDate("hireDate").toLocalDate());
 
                 employees.add(person);
+                
             }
 
             return employees;
+            
         } catch (SQLException e) {
+            
             System.out.println(e);
             return null;
+            
         } finally {
+            
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+            
         }
     }
     
@@ -148,20 +165,26 @@ public class EmployeeManagerDA {
         String query = "";
 
         if (searchCriteria.equals("before")) {
+            
             query = "SELECT * FROM employees "
                          + "WHERE hireDate <= ?";
+            
         }
         else {
+            
             query = "SELECT * FROM employees "
                          + "WHERE hireDate >= ?";
+            
         }
 
         try {
+            
             ps = connection.prepareStatement(query);
             ps.setDate(1, java.sql.Date.valueOf(searchDate));
             rs = ps.executeQuery();
 
             while (rs.next()) {
+                
                 Person person = new Person();
                 person.setFirstName(rs.getString("firstName"));
                 person.setMiddleName(rs.getString("middleName"));
@@ -171,16 +194,22 @@ public class EmployeeManagerDA {
                 person.setHireDate(rs.getDate("hireDate").toLocalDate());
 
                 employees.add(person);
+                
             }
 
             return employees;
+            
         } catch (SQLException e) {
+            
             System.out.println(e);
             return null;
+            
         } finally {
+            
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+            
         }
     }
     
@@ -200,30 +229,82 @@ public class EmployeeManagerDA {
                      + "WHERE employeeID = ?";
         
         try {
+            
             ps = connection.prepareStatement(query);
             ps.setInt(1, id);
             rs = ps.executeQuery();
             
             Person person = null;
+            
             if (rs.next()) {
+                
                 person = new Person();
+                person.setEmployeeID(String.valueOf(rs.getInt("employeeID")));
                 person.setFirstName(rs.getString("firstName"));
                 person.setMiddleName(rs.getString("middleName"));
                 person.setLastName(rs.getString("lastName"));
                 person.setBirthDate(rs.getDate("birthDate").toLocalDate());
                 person.setHireDate(rs.getDate("hireDate").toLocalDate());
+                
             }
             return person;
+            
         }
         catch (SQLException e) {
+            
             System.out.println(e);
             return null;
+            
         }
         finally {
+            
             DBUtil.closeResultSet(rs);
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+            
         }
+    }
+    
+    public static int updateEmployee(Person person) {
+        
+        ConnectionPool pool = ConnectionPool.getInstance();
+        Connection connection = pool.getConnection();
+        PreparedStatement ps = null;
+        
+        String query = "UPDATE employees SET "
+                     + "firstName = ?, "
+                     + "middleName = ?, "
+                     + "lastName = ?, "
+                     + "birthDate = ?, "
+                     + "hireDate = ? "
+                     + "WHERE employeeID = ?";
+    
+        try {
+            
+            ps = connection.prepareStatement(query);
+            ps.setString(1, person.getFirstName());
+            ps.setString(2, person.getMiddleName());
+            ps.setString(3, person.getLastName());
+            ps.setDate(4, java.sql.Date.valueOf(person.getBirthDate()));
+            ps.setDate(5, java.sql.Date.valueOf(person.getHireDate()));
+            ps.setInt(6, Integer.parseInt(person.getEmployeeID()));
+            
+            return ps.executeUpdate();
+            
+        }
+        catch (SQLException e) {
+            
+            System.out.println(e);
+            return 0;
+            
+        }
+        finally {
+            
+            DBUtil.closePreparedStatement(ps);
+            pool.freeConnection(connection);
+            
+        }
+                
     }
     
     public static int addNewEmployee(Person person) {
@@ -236,6 +317,7 @@ public class EmployeeManagerDA {
                      + "VALUES (?, ?, ?, ?, ?)";
         
         try {
+            
             ps = connection.prepareStatement(query);
             ps.setString(1, person.getFirstName());
             ps.setString(2, person.getMiddleName());
@@ -243,15 +325,19 @@ public class EmployeeManagerDA {
             ps.setDate(4, java.sql.Date.valueOf(person.getBirthDate()));
             ps.setDate(5, java.sql.Date.valueOf(person.getHireDate()));
             return ps.executeUpdate();
+            
         }
         catch (SQLException e) {
+            
             System.out.println(e);
             return 0;
+            
         } 
         finally {
+            
             DBUtil.closePreparedStatement(ps);
             pool.freeConnection(connection);
+            
         }
-    }
-    
+    } 
 }
